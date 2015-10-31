@@ -131,10 +131,10 @@ namespace NanoCanvas
         
         inline Color& set(unsigned int color)
         {
-            r = (Byte) color >> 24U;
-            g = (Byte)(color >> 16U) & 0x00ffU;
-            b = (Byte)(color >> 8U) & 0x0000ffU;
-            a = (Byte) color % 0x100U;
+            r = (Byte)( color >> 24U );
+            g = (Byte)((color >> 16U) & 0x00ffU);
+            b = (Byte)((color >> 8U) & 0x0000ffU);
+            a = (Byte)( color % 0x100U );
             return *this;
         }
         

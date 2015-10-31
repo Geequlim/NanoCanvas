@@ -41,7 +41,6 @@ namespace NanoCanvas
 }
 
 #include "Color.hpp"
-#include "Gradient.h"
 #include "Canvas.h"
 
 #endif //__NANOCANVAS_H__

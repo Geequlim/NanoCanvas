@@ -6,9 +6,24 @@ class NVGcontext;
 
 namespace NanoCanvas
 {
+    
+    struct Paint
+    {
+        enum class Type
+        {
+            Linear,
+            Radial,
+            Box,
+            Image,
+            None
+        } type = Type::None;
+        float xx =0.0f, yy =0.0f , aa =0.0f, bb =0.0f, cc =0.0f,dd =0.0f;
+        Color sColor = Colors::zeroColor;
+        Color eColor = Colors::zeroColor;
+    };
+    
     class Canvas
     {
-        friend class Gradient;
     public:
         /// The function to create NanoVG context
         static std::function<NVGcontext*(int)> nvgContextCreateFunc;
@@ -302,16 +317,7 @@ namespace NanoCanvas
          * @return The canvas to operate with
          */
         Canvas& miterLimit(float limit);
-//        
-//        /**
-//         * @brief Get the current alpha or transparency value of the drawing
-//         * @return The alpha vlaue of canvas
-//         */
-//        inline float globalAlpha()const
-//        {
-//            return m_alpha;
-//        }
-//        
+        
         /**
          * @brief Sets the current alpha or transparency value of the drawing.
          * @param alpha new alpha vlaue of canvas
@@ -328,11 +334,141 @@ namespace NanoCanvas
         Canvas& fillStyle(const Color& color);
         
         /**
+         * @brief Set the gradient or pattern paint used to fill the drawing
+         * @param paint The paint used to fill the drawing
+         * @return The canvas to operate with
+         */
+        Canvas& fillStyle(const Paint& paint);
+        
+        /**
          * @brief  Set the color used for strokes.
          * @param color Stroke color
          * @return The canvas to operate with
          */
         Canvas& strokeStyle(const Color& color);
+        
+        /**
+         * @brief Set the gradient or pattern paint used for strokes
+         * @param paint The paint used to fill the drawing
+         * @return The canvas to operate with
+         */
+        Canvas& strokeStyle(const Paint& paint);
+        
+        /**
+         * @brief Creates a linear gradient (to use on canvas content)
+         * @param x0 The x-coordinate of the start point of the gradient
+         * @param y0 The y-coordinate of the start point of the gradient
+         * @param x1 The x-coordinate of the end point of the gradient
+         * @param y1 The y-coordinate of the end point of the gradient
+         * @param scolor The start color
+         * @param outter The end color
+         * @return The created gradient style object.
+         */
+        static Paint createLinearGradient(float x0,float y0,float x1,float y1,
+                                      const Color& scolor , const Color& ecolor);
+        
+        /**
+         * @brief Creates a radial/circular gradient (to use on canvas content)
+         * @param cx The x-coordinate of the circle of the gradient
+         * @param cy The y-coordinate of the circle of the gradient
+         * @param r1 The radius of the inner circle
+         * @param r2 The radius of the outter circle
+         * @param icolor The color on inner circle
+         * @param ocolor The color on outer circle
+         * @return The created gradient style object.
+         */
+        static Paint createRadialGradient(float cx,float cy,float r1,float r2,
+                                      const Color& icolor , const Color& ocolor);
+                                      
+        /**
+         * @brief Creates and returns a box gradient.
+         * @par Box gradient is a feathered rounded rectangle, it is useful for rendering drop shadows or highlights for boxes.
+         * @param x The x-coordinate of the upper-left corner of the rectangle
+         * @param y The y-coordinate of the upper-left corner of the rectangle
+         * @param w The width of the rectangle, in pixels
+         * @param h The height of the rectangle, in pixels
+         * @param r The radius of the circle formed by 4 corners of the rounded rectangle
+         * @param f How blurry the border of the rectangle is
+         * @param icol The inner color of the gradient
+         * @param ocol The outer color of the gradient
+         * @return The created gradient style object.
+         */
+        static Paint createBoxGradient(float x, float y, float w, float h,
+                                float r, float f, Color icol, Color ocol);
+        
+    /*--------------------- Transformations ----------------*/
+        
+        /**
+         * @brief Scales the current drawing, bigger or smaller.
+         * @note Note: If you scale a drawing, all future drawings will also be scaled. The positioning will also be scaled. If you scale(2,2); drawings will be positioned twice as far from the left and top of the canvas as you specify.
+         * @param scalewidth Scales the width of the current drawing (1=100%, 0.5=50%, 2=200%, etc.)
+         * @param scaleheight Scales the height of the current drawing (1=100%, 0.5=50%, 2=200%, etc.)
+         * @return The canvas to scale with
+         */
+        Canvas& scale(float scalewidth , float scaleheight);
+        
+        /**
+         * @brief Rotates the current drawing
+         * @note: The rotation will only affect drawings made AFTER the rotation is done.
+         * @par To calculate from degrees to radians: degrees*Math.PI/180.
+         * @n Example: to rotate 5 degrees, specify the following: 5*Math.PI/180
+         * @param angle The rotation angle, in radians.
+         * @return The canvas to rotate with
+         */
+        Canvas& rotate(float angle);
+        
+        /**
+         * @brief Remaps the (0,0) position on the canvas
+         * @note When you call a method such as fillRect() after translate(), the value is added to the x- and y-coordinate values.
+         * @param x The value to add to horizontal (x) coordinates
+         * @param y The value to add to vertical (y) coordinates
+         * @return The canvas to translate with
+         */
+        Canvas& translate(float x,float y);
+        
+        /**
+         * @brief Replaces the current transformation matrix for the drawing
+         * @par Each object on the canvas has a current transformation matrix. @n
+         * The transform() method replaces the current transformation matrix. It multiplies the current transformation matrix with the matrix described by: @n
+         *
+         * @li a    c   e
+         * @li b    d   f
+         * @li 0    0   1
+         * 
+         * @par In other words, the transform() method lets you scale, rotate, move, and skew the current context.
+         * @note The transformation will only affect drawings made after the transform() method is called.
+         * @note  The transform() method behaves relatively to other transformations made by rotate(), scale(), translate(), or transform(). Example: If you already have set your drawing to scale by two, and the transform() method scales your drawings by two, your drawings will now scale by four.
+         * @par Tip: Check out the setTransform() method, which does not behave relatively to other transformations.
+         * 
+         * @param a Scales the drawing horizontally
+         * @param b Skew the the drawing horizontally
+         * @param c Skew the the drawing vertically
+         * @param d Scales the drawing vertically
+         * @param e Moves the the drawing horizontally
+         * @param f Moves the the drawing vertically
+         * @return The canvas to transform with
+         */
+        Canvas& transform(float a, float b, float c, float d, float e, float f);
+        
+        /**
+         * @brief Resets the current transform to the identity matrix. Then runs transform()
+         * @param a Scales the drawing horizontally
+         * @param b Skew the the drawing horizontally
+         * @param c Skew the the drawing vertically
+         * @param d Scales the drawing vertically
+         * @param e Moves the the drawing horizontally
+         * @param f Moves the the drawing vertically
+         * @see Canvas::transform()
+         * @see Canvas::restTransform()
+         * @return The canvas to set transform with
+         */
+        Canvas& setTransform(float a, float b, float c, float d, float e, float f);
+        
+        /**
+         * @brief Resets the current transform to the identity matrix.
+         * @return The canvas to set transform with
+         */
+        Canvas& restTransform();
         
     /*--------------------- Canvas Control -----------------*/
         /**
