@@ -9,29 +9,46 @@ namespace NanoCanvas
         return nvgRGBA(color.r,color.g,color.b,color.a);
     }
 
-    NVGpaint nvgPaint(NVGcontext* vg,const Paint& paint)
+    NVGpaint nvgPaint(Canvas& canvas,const Paint& paint)
     {
         NVGpaint nvgPaint;
         switch(paint.type)
         {
             case Paint::Type::Linear:
-                nvgPaint = nvgLinearGradient(vg,paint.xx,paint.yy,
-                                             paint.aa,paint.bb,
+            {
+                float x0 = paint.xx;
+                float y0 = paint.yy;
+                float x1 = paint.aa;
+                float y1 = paint.bb;
+                canvas.local2Global(x0,y0);
+                canvas.local2Global(x1,y1);
+                nvgPaint = nvgLinearGradient(canvas.nvgContext(),x0,y0,x1,y1,
                                              nvgColor(paint.sColor),
                                              nvgColor(paint.eColor));
-                break;
+            }
+            break;
             case Paint::Type::Box:
-                nvgPaint = nvgBoxGradient(vg,paint.xx,paint.yy,
+            {
+                float x = paint.xx;
+                float y = paint.yy;
+                canvas.local2Global(x,y);
+                nvgPaint = nvgBoxGradient(canvas.nvgContext(),x,y,
                                           paint.aa,paint.bb,paint.cc,
                                           paint.dd,nvgColor(paint.sColor),
                                           nvgColor(paint.eColor));
-                break;
+            }
+            break;
             case Paint::Type::Radial:
-                nvgPaint = nvgRadialGradient(vg,paint.xx,paint.yy,
+            {
+                float cx = paint.xx;
+                float cy = paint.yy;
+                canvas.local2Global(cx,cy);
+                nvgPaint = nvgRadialGradient(canvas.nvgContext(),cx,cy,
                                              paint.aa,paint.bb,
                                              nvgColor(paint.sColor),
                                              nvgColor(paint.eColor));
-                break;
+            }
+            break;
             case Paint::Type::Image:
                 // TODO: Image pattern
                 break;
@@ -52,7 +69,6 @@ namespace NanoCanvas
         m_height = height;
         m_scaleRatio = scaleRatio;
         m_xPos  = m_yPos = 0;
-        m_alpha = 1.0f;
     }
 
 
@@ -60,8 +76,7 @@ namespace NanoCanvas
 
     Canvas& Canvas::globalAlpha(float alpha)
     {
-        m_alpha = alpha;
-        nvgGlobalAlpha(m_nvgCtx,m_alpha);
+        nvgGlobalAlpha(m_nvgCtx,alpha);
         return *this;
     }
 
@@ -110,7 +125,7 @@ namespace NanoCanvas
     {
         if (paint.type != Paint::Type::None )
         {
-            NVGpaint npaint = nvgPaint(m_nvgCtx,paint);
+            NVGpaint npaint = nvgPaint(*this,paint);
             nvgFillPaint(m_nvgCtx,npaint);
         }
         return *this;
@@ -120,9 +135,10 @@ namespace NanoCanvas
     {
         if (paint.type != Paint::Type::None )
         {
-            NVGpaint npaint = nvgPaint(m_nvgCtx,paint);
+            NVGpaint npaint = nvgPaint(*this,paint);
             nvgStrokePaint(m_nvgCtx,npaint);
         }
+        return *this;
     }
 
     Canvas& Canvas::strokeStyle(const Color& color)
@@ -175,6 +191,46 @@ namespace NanoCanvas
         return gdt;
     }
 
+    Canvas& Canvas::font(const Font& font)
+    {
+        if(font.valid())
+            nvgFontFaceId(m_nvgCtx,font.face);
+        return *this;
+    }
+    
+    Canvas& Canvas::font(float size)
+    {
+        nvgFontSize(m_nvgCtx,size);
+        return *this;
+    }
+    
+    Canvas& Canvas::textAlign( HorizontalAlign hAlign,VerticalAlign vAlign)
+    {
+        nvgTextAlign(m_nvgCtx,hAlign|vAlign);
+        return *this;
+    }
+    
+    void applyTextStyle(Canvas& canvas,const TextStyle& textStyle )
+    {
+        if( textStyle.face>=0 )
+            nvgFontFaceId(canvas.nvgContext(),textStyle.face);
+        if( !isnan(textStyle.lineHeight) )
+            nvgTextLineHeight(canvas.nvgContext(),textStyle.lineHeight);
+        if( !isnan(textStyle.blur) )
+            nvgFontBlur(canvas.nvgContext(),textStyle.blur);
+        if( !isnan(textStyle.letterSpace))
+            nvgTextLetterSpacing(canvas.nvgContext(),textStyle.letterSpace);
+        nvgTextAlign(canvas.nvgContext(),textStyle.hAlign|textStyle.vAlign);
+        nvgFontSize(canvas.nvgContext(),textStyle.size);
+    }
+    
+    Canvas& Canvas::fillStyle(const TextStyle& textStyle)
+    {
+        applyTextStyle(*this,textStyle);
+        nvgFillColor(m_nvgCtx,nvgColor(textStyle.color));
+        return *this;
+    }
+    
 /* ------------------- Basic Path ----------------------*/
 
     Canvas& Canvas::moveTo(float x,float y)
@@ -311,6 +367,15 @@ namespace NanoCanvas
         return *this;
     }
 
+    Canvas& Canvas::fillText(const string& text,float x,float y)
+    {
+        if(text.length())
+        {
+            local2Global(x,y);
+            nvgText(m_nvgCtx,x,y,text.c_str(),nullptr);
+        }
+        return *this;
+    }
 
 /*------------------- State Handling -----------------*/
 

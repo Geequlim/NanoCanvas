@@ -6,6 +6,7 @@ class NVGcontext;
 
 namespace NanoCanvas
 {
+    using namespace TextAlign;
     
     struct Paint
     {
@@ -18,8 +19,8 @@ namespace NanoCanvas
             None
         } type = Type::None;
         float xx =0.0f, yy =0.0f , aa =0.0f, bb =0.0f, cc =0.0f,dd =0.0f;
-        Color sColor = Colors::zeroColor;
-        Color eColor = Colors::zeroColor;
+        Color sColor = Colors::ZeroColor;
+        Color eColor = Colors::ZeroColor;
     };
     
     class Canvas
@@ -38,6 +39,8 @@ namespace NanoCanvas
             /// Flag indicating that additional debug checks are done.
             CVS_DEBUG           = 1<<2,
         };
+        
+        
         
         enum class Winding 
         {
@@ -281,6 +284,17 @@ namespace NanoCanvas
          */
         Canvas& clearColor(const Color& color);
         
+        
+        /**
+         * @brief Draws "filled" text on the canvas
+         * @param text Specifies the text that will be written on the canvas
+         * @param x The x coordinate where to start painting the text (relative to the canvas)
+         * @param y The y coordinate where to start painting the text (relative to the canvas)
+         * @return The canvas to operate with
+         */
+        Canvas& fillText(const string& text,float x,float y);
+        
+        
     /*-------------------- Style Control -------------------*/
     
         /**
@@ -354,6 +368,41 @@ namespace NanoCanvas
          */
         Canvas& strokeStyle(const Paint& paint);
         
+        
+        /**
+         * @brief Set current font for text rendering 
+         * @note If the face of the font is invalid ,it doesn't work
+         * @see NanoCanvas::Font
+         * @param font The font to use
+         * @return The canvas to operate with
+         */
+        Canvas& font(const Font& font);
+        
+        /**
+         * @brief Set font size for current text style.
+         * @param size The font size
+         * @return The canvas to operate with
+         */
+        Canvas& font(float size);
+        
+        /**
+         * @brief Sets the text alignment of current text style
+         * @param hAlign The horizontak alignment
+         * @param vAlign The verical alignment
+         * @see TextAlign::HorizontalAlign        
+         * @see TextAlign::VerticalAlign
+         * @return The canvas to operate with
+         */
+        Canvas& textAlign( HorizontalAlign hAlign,VerticalAlign vAlign);
+        
+        /**
+         * @brief Set styles for text rendering
+         * @param textStyle The text style to use
+         * @see NanoCanvas::TextStyle
+         * @return The canvas to operate with
+         */
+        Canvas& fillStyle(const TextStyle& textStyle);
+        
         /**
          * @brief Creates a linear gradient (to use on canvas content)
          * @param x0 The x-coordinate of the start point of the gradient
@@ -395,6 +444,9 @@ namespace NanoCanvas
          */
         static Paint createBoxGradient(float x, float y, float w, float h,
                                 float r, float f, Color icol, Color ocol);
+        
+        
+        
         
     /*--------------------- Transformations ----------------*/
         
@@ -626,6 +678,7 @@ namespace NanoCanvas
             y = y - m_yPos;
         }
         
+        
         NVGcontext* nvgContext(){ return m_nvgCtx; }
         
     protected:
@@ -635,7 +688,6 @@ namespace NanoCanvas
         float m_scaleRatio;
         float m_xPos;
         float m_yPos;
-        float m_alpha;
     };
 }
 

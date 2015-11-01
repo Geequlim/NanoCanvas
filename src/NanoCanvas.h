@@ -4,11 +4,22 @@
 #include <climits>
 #include <algorithm>
 #include <string>
+#include <cmath>
 
-using std::string;
 
 namespace NanoCanvas
 {
+    using std::string;
+    static string nullstr;
+    
+    struct Memery
+    {
+        void * data = nullptr;
+        unsigned long size = 0UL;
+        bool valid()const{ return ( data && size ); }
+        void invalidate(){ data = nullptr ;size = 0UL; }
+    };
+    
     static constexpr long double PI = 3.14159265358979323846264338327L;
     
     /**
@@ -41,6 +52,7 @@ namespace NanoCanvas
 }
 
 #include "Color.hpp"
+#include "Font.h"
 #include "Canvas.h"
 
 #endif //__NANOCANVAS_H__
