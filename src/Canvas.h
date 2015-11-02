@@ -10,7 +10,6 @@ namespace NanoCanvas
     
     class Canvas
     {
-        friend class Image;
     public:
         enum class Winding 
         {
@@ -409,7 +408,7 @@ namespace NanoCanvas
         
         
         static Paint createPattern(const Image& image,float ox, float oy, 
-                                   float w, float h,float angle, float alpha);
+                                   float w, float h,float angle = 0.0f, float alpha = 1.0f);
         
         /**
          * @brief Check the width of the text, before writing it on the canvas
