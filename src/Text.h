@@ -7,13 +7,14 @@ namespace NanoCanvas
     
     struct Font
     {
+        int face = 0;
+        string name = nullstr;
+        
         Font() = default;
         Font(Canvas& canvas, const string& fname , const string& ttfPath);
         Font(Canvas& canvas,const string& fname,const Memery& mem,bool invalidateMem);
-        virtual ~Font(){};
-        bool valid()const{ return face >= 0; }
-        int face = 0;
-        string name = nullstr;
+        inline bool valid()const{ return face >= 0; }
+        ~Font(){};
     };
     
     namespace TextAlign

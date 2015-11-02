@@ -49,9 +49,18 @@ namespace NanoCanvas
                                              nvgColor(paint.eColor));
             }
             break;
-            case Paint::Type::Image:
-                // TODO: Image pattern
-                break;
+            case Paint::Type::ImagePattern:
+            {
+                float ox = paint.xx;
+                float oy = paint.yy;
+                canvas.local2Global(ox,oy);
+                nvgPaint = nvgImagePattern(canvas.nvgContext(),ox,oy,
+                                           paint.aa,paint.bb,
+                                           paint.cc,
+                                           paint.imageID,
+                                           paint.dd);
+            }
+            break;
             case Paint::Type::None:
             default:
                 break;
@@ -60,11 +69,9 @@ namespace NanoCanvas
     }
 
 /*----------------- Propoties ---------------------*/
-    std::function<NVGcontext*(int)> Canvas::nvgContextCreateFunc = nullptr;
-
-    Canvas::Canvas(int flags , float width , float height, float scaleRatio)
+    Canvas::Canvas(NVGcontext* ctx,float width , float height , float scaleRatio)
     {
-        m_nvgCtx = nvgContextCreateFunc(flags);
+        m_nvgCtx = ctx;
         m_width = width;
         m_height = height;
         m_scaleRatio = scaleRatio;
@@ -190,6 +197,21 @@ namespace NanoCanvas
         gdt.eColor = ocol;
         return gdt;
     }
+    
+    Paint Canvas::createPattern(const Image& image,float ox, float oy, 
+                                float w, float h,float angle, float alpha)
+    {
+        Paint gdt;
+        gdt.type = Paint::Type::ImagePattern;
+        gdt.imageID = image.imageID;
+        gdt.xx = ox;
+        gdt.yy = oy;
+        gdt.aa = w;
+        gdt.bb = h;
+        gdt.cc = angle;
+        gdt.dd = alpha;
+        return gdt;
+    }
 
     Canvas& Canvas::font(const Font& font)
     {
@@ -229,6 +251,11 @@ namespace NanoCanvas
         applyTextStyle(*this,textStyle);
         nvgFillColor(m_nvgCtx,nvgColor(textStyle.color));
         return *this;
+    }
+    
+    float Canvas::measureText(const string& text)
+    {
+        return nvgTextBounds(m_nvgCtx,0,0,text.c_str(),nullptr,nullptr);
     }
     
 /* ------------------- Basic Path ----------------------*/
@@ -375,6 +402,34 @@ namespace NanoCanvas
             nvgText(m_nvgCtx,x,y,text.c_str(),nullptr);
         }
         return *this;
+    }
+    
+    Canvas& Canvas::drawImage(Image& image,
+                          float sx,float sy,float swidth,float sheight,
+                          float x,float y, float width,float height)
+    {
+        if(image.valid())
+        {
+            save();
+            resetClip();
+            clip(x,y,width,height);
+            
+            int w,h;
+            image.size(w,h);
+            local2Global(x,y);
+            float sw =  width / swidth;
+            float sh =  height / sheight;
+            float rx,ry,rw,rh;
+            rw = w * sw;
+            rh = h * sh;
+            rx = x - sx*sw;
+            ry = y - sy*sh;
+            
+            Paint pattern = createPattern(image,rx,ry,rw,rh,0,1.0f);
+            fillStyle(pattern);
+            rect(rx,ry,rw,rh).fill();
+            restore();
+        }
     }
 
 /*------------------- State Handling -----------------*/

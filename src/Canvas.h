@@ -8,40 +8,10 @@ namespace NanoCanvas
 {
     using namespace TextAlign;
     
-    struct Paint
-    {
-        enum class Type
-        {
-            Linear,
-            Radial,
-            Box,
-            Image,
-            None
-        } type = Type::None;
-        float xx =0.0f, yy =0.0f , aa =0.0f, bb =0.0f, cc =0.0f,dd =0.0f;
-        Color sColor = Colors::ZeroColor;
-        Color eColor = Colors::ZeroColor;
-    };
-    
     class Canvas
     {
+        friend class Image;
     public:
-        /// The function to create NanoVG context
-        static std::function<NVGcontext*(int)> nvgContextCreateFunc;
-        
-        enum CreateFlags
-        {
-            /// Flag indicating if geometry based anti-aliasing is used (may not be needed when using MSAA).
-            CVS_ANTIALIAS       = 1<<0,
-            /// Flag indicating if strokes should be drawn using stencil buffer. The rendering will be a little
-            /// slower, but path overlaps (i.e. self-intersecting or sharp turns) will be drawn just once.
-            CVS_STENCIL_STROKES = 1<<1,
-            /// Flag indicating that additional debug checks are done.
-            CVS_DEBUG           = 1<<2,
-        };
-        
-        
-        
         enum class Winding 
         {
             /// Counter clock wise
@@ -71,25 +41,14 @@ namespace NanoCanvas
             MITER
         };
         
-        
         /**
-         * @brief Initialize Canvas with the function to create NanoVG context
-         */
-        static void init(const std::function<NVGcontext*(int)>& func)
-        {
-            nvgContextCreateFunc = func;
-        }
-        
-        /**
-         * @brief Construct a Canvas
-         * @param flags Canvas flags in CreateFlags
+         * @brief Construct a canvas with NanoVG Context
+         * @param ctx The NanoVG Context used for this canvas
          * @param width The width of the canvas, in pixels
          * @param height The height of the canvas, in pixels
          * @param scaleRatio The device pixel ration 
-         * @return 
          */
-        Canvas(int flags , float width , float height , float scaleRatio =1.0f);
-        
+        Canvas(NVGcontext* ctx,float width , float height , float scaleRatio =1.0f);
         
     /* ------------------- Basic Path ----------------------*/
     
@@ -294,6 +253,9 @@ namespace NanoCanvas
          */
         Canvas& fillText(const string& text,float x,float y);
         
+        Canvas& drawImage(Image& image,
+                          float sx,float sy,float swidth,float sheight,
+                          float x,float y, float width,float height);
         
     /*-------------------- Style Control -------------------*/
     
@@ -446,13 +408,22 @@ namespace NanoCanvas
                                 float r, float f, Color icol, Color ocol);
         
         
+        static Paint createPattern(const Image& image,float ox, float oy, 
+                                   float w, float h,float angle, float alpha);
+        
+        /**
+         * @brief Check the width of the text, before writing it on the canvas
+         * @param text The text to be measured
+         * @return Returns an object that contains the width of the specified text
+         */
+        float measureText(const string& text);
         
         
     /*--------------------- Transformations ----------------*/
         
         /**
          * @brief Scales the current drawing, bigger or smaller.
-         * @note Note: If you scale a drawing, all future drawings will also be scaled. The positioning will also be scaled. If you scale(2,2); drawings will be positioned twice as far from the left and top of the canvas as you specify.
+         * @note If you scale a drawing, all future drawings will also be scaled. The positioning will also be scaled. If you scale(2,2); drawings will be positioned twice as far from the left and top of the canvas as you specify.
          * @param scalewidth Scales the width of the current drawing (1=100%, 0.5=50%, 2=200%, etc.)
          * @param scaleheight Scales the height of the current drawing (1=100%, 0.5=50%, 2=200%, etc.)
          * @return The canvas to scale with

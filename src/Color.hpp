@@ -43,17 +43,31 @@ namespace NanoCanvas
           * @param _b The blue component value
           * @param _a The alpha component value
          */
-        Color(Byte _r, Byte _g, Byte _b, Byte _a)
+        Color(Byte _r, Byte _g, Byte _b, Byte _a = 255)
+        {
+            set(_r,_g,_b,_a);
+        }
+        
+        /**
+          * @brief Construct color with it's components value in the range [0,255]
+          * @param _r The red component value
+          * @param _g The green component value
+          * @param _b The blue component value
+          * @param _a The alpha component value
+         */
+        Color(int _r, int _g, int _b, int _a = 255)
         {
             set(_r,_g,_b,_a);
         }
 
-        Color(int _r, int _g, int _b, int _a)
-        {
-            set(_r,_g,_b,_a);
-        }
-
-        Color(unsigned _r, unsigned _g, unsigned _b, unsigned _a)
+        /**
+          * @brief Construct color with it's components value in the range [0,255]
+          * @param _r The red component value
+          * @param _g The green component value
+          * @param _b The blue component value
+          * @param _a The alpha component value
+         */
+        Color(unsigned _r, unsigned _g, unsigned _b, unsigned _a = 255)
         {
             set(_r,_g,_b,_a);
         }
@@ -65,7 +79,7 @@ namespace NanoCanvas
           * @param _b The blue component value
           * @param _a The alpha component value
           */
-        Color(float _r, float _g, float _b, float _a)
+        Color(float _r, float _g, float _b, float _a = 1.0f)
         {
             set(_r,_g,_b,_a);
         }
