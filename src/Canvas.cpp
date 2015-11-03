@@ -453,6 +453,7 @@ namespace NanoCanvas
             rect(rx,ry,rw,rh).fill();
             restore();
         }
+        return *this;
     }
 
 /*------------------- State Handling -----------------*/

@@ -585,7 +585,7 @@ namespace NanoCanvas
      * NanoVG contains state which represents how paths will be rendered.
      * The state contains transform, fill and stroke styles, text and font styles,and scissor clipping.
      * 
-     *-----------------------------------------------------------------/
+     *-----------------------------------------------------------------*/
         
         /**
          * @brief Pushe and save the current render state into a state stack.

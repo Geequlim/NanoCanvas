@@ -171,11 +171,13 @@ namespace NanoCanvas
         inline Color& set(unsigned _r, unsigned _g, unsigned _b, unsigned _a)
         {
             r = (Byte)_r; g = (Byte)_g; b = (Byte)_b; a = (Byte)_a;
+            return *this;
         }
 
         inline Color& set(int _r, int _g, int _b, int _a)
         {
             r = (Byte)_r; g = (Byte)_g; b = (Byte)_b; a = (Byte)_a;
+            return *this;
         }
 
         inline unsigned int code()const

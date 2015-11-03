@@ -43,7 +43,7 @@ namespace NanoCanvas
         }
     }
     
-    bool Image::update(const Memery& memory)
+    void Image::update(const Memery& memory)
     {
         if(m_canvas)
         {

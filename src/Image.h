@@ -73,7 +73,7 @@ namespace NanoCanvas
         inline bool valid()const{ return imageID;}
         
         /// Update the image with memory data
-        bool update(const Memery& memory);
+        void update(const Memery& memory);
         
         /**
          * @brief Get image size
