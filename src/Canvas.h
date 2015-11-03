@@ -8,6 +8,12 @@ namespace NanoCanvas
 {
     using namespace TextAlign;
     
+    /**
+     * @class Canvas
+     * @author Geequlim
+     * @file Canvas.h
+     * @brief The HTML5's Canvas liked render API writing in C++11 based on NanoVG
+     */
     class Canvas
     {
     public:
@@ -19,6 +25,7 @@ namespace NanoCanvas
             CW = 2,
         };
         
+        /// Line cap style
         enum class LineCap 
         {
             ///  A flat edge is added to each end of the line
@@ -30,6 +37,7 @@ namespace NanoCanvas
             
         };
         
+        /// Line join style
         enum class LineJoin
         {
             /// Creates a beveled corner
@@ -673,14 +681,24 @@ namespace NanoCanvas
         }
         
         
+        /**
+         * @brief Get the NanoVG context for advanced contol
+         * @return The NanoVG context of this canvas
+         */
         NVGcontext* nvgContext(){ return m_nvgCtx; }
         
     protected:
+        /// The NanoVG context
         NVGcontext * m_nvgCtx;
+        /// The width of the canvas
         float m_width;
+        /// The height of the canvas
         float m_height;
+        /// Buffer / window size ratio
         float m_scaleRatio;
+        /// The x-coordinate of the canvas in window
         float m_xPos;
+        /// The y-coordinate of the canvas in window
         float m_yPos;
     };
 }
