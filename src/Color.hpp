@@ -3,7 +3,8 @@
 
 namespace NanoCanvas
 {
-
+    #include "ColorConverter.h"
+    
     using  Byte = unsigned char;
 
     struct Color
@@ -191,6 +192,13 @@ namespace NanoCanvas
         inline float greenf()const{ return g/255.0f; }
         inline float bluef()const{ return  b/255.0f; }
         inline float alphaf()const{ return a/255.0f; }
+        
+        static Color createWidthHSL(float _h , float _s,float _l,float _a = 1.0f)
+        {
+            Color color(0.0f,0.0f,0.0f,_a);
+            ColorConverter::hslToRgb(_h,_s,_l,color.mem);
+            return color;
+        }
     };
 
     namespace Colors
