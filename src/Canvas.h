@@ -248,9 +248,10 @@ namespace NanoCanvas
          * @param text Specifies the text that will be written on the canvas
          * @param x The x coordinate where to start painting the text (relative to the canvas)
          * @param y The y coordinate where to start painting the text (relative to the canvas)
+         * @param rowWidth The max row width of the text box,NAN is not limited
          * @return The canvas to operate with
          */
-        Canvas& fillText(const string& text,float x,float y);
+        Canvas& fillText(const string& text,float x,float y,float rowWidth = NAN);
         
         Canvas& drawImage(Image& image,
                           float sx,float sy,float swidth,float sheight,
@@ -406,23 +407,46 @@ namespace NanoCanvas
         static Paint createBoxGradient(float x, float y, float w, float h,
                                 float r, float f, Color icol, Color ocol);
         
-        
+        /**
+         * @brief Creates and returns an image pattern paint.
+         * @param image Specifies the image of the pattern to use
+         * @param ox The x-coordinate of the upper-left corner of the image would be draw
+         * @param oy The y-coordinate of the upper-left corner of the image would be draw
+         * @param w The width of the pattern
+         * @param h The height of the pattern
+         * @param angle The rotation around the top-left corner in radians
+         * @param alpha The transparent of the image pattern
+         * @return The patter paint created
+         */
         static Paint createPattern(const Image& image,float ox, float oy, 
                                    float w, float h,float angle = 0.0f, float alpha = 1.0f);
         
         /**
          * @brief Check the width of the text, before writing it on the canvas
          * @param text The text to be measured
-         * @return Returns an object that contains the width of the specified text
+         * @param rowWidth The max row width of the text box,NAN is not limited
+         * @return The width of the specified text
          */
-        float measureText(const string& text);
+        float measureText(const string& text,float rowWidth = NAN);
+        
+        /**
+         * @brief Check the boundary of the text, before writing it on the canvas
+         * @param text The text to be measured
+         * @param x The x-coordinate of the text
+         * @param y The y-coordinate of the text 
+         * @param bounds [in] The float array to store boundary values should be a pointer to float[4]
+         * @param rowWidth The max row width of the text box,NAN is not limited
+         * @return The width of the specified text
+         */
+        float measureText(const string& text,float x,float y,float* bounds,float rowWidth = NAN);
         
         
     /*--------------------- Transformations ----------------*/
         
         /**
          * @brief Scales the current drawing, bigger or smaller.
-         * @note If you scale a drawing, all future drawings will also be scaled. The positioning will also be scaled. If you scale(2,2); drawings will be positioned twice as far from the left and top of the canvas as you specify.
+         * @note If you scale a drawing, all future drawings will also be scaled. The positioning will also be scaled. 
+         * If you scale(2,2); drawings will be positioned twice as far from the left and top of the canvas as you specify.
          * @param scalewidth Scales the width of the current drawing (1=100%, 0.5=50%, 2=200%, etc.)
          * @param scaleheight Scales the height of the current drawing (1=100%, 0.5=50%, 2=200%, etc.)
          * @return The canvas to scale with

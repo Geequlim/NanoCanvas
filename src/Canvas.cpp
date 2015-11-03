@@ -253,9 +253,31 @@ namespace NanoCanvas
         return *this;
     }
     
-    float Canvas::measureText(const string& text)
+    float Canvas::measureText(const string& text,float rowWidth)
     {
-        return nvgTextBounds(m_nvgCtx,0,0,text.c_str(),nullptr,nullptr);
+        float width = 0;
+        if( isnan(rowWidth))
+            width =  nvgTextBounds(m_nvgCtx,0,0,text.c_str(),nullptr,nullptr);
+        else
+        {
+            float bouds[4]{0};
+            width = measureText(text,0,0,bouds,rowWidth);
+        }
+        return width;
+    }
+    
+    float Canvas::measureText(const string& text,float x,float y,
+                              float* bounds,float rowWidth)
+    {
+        local2Global(x,y);
+        if( isnan(rowWidth))
+            nvgTextBounds(m_nvgCtx,x,y,text.c_str(),nullptr,bounds);
+        else
+            nvgTextBoxBounds(m_nvgCtx,x,y,rowWidth,text.c_str(),nullptr,bounds);
+        float width = 0;
+        if( bounds )
+            width = bounds[2] - bounds[0];
+        return width;
     }
     
 /* ------------------- Basic Path ----------------------*/
@@ -383,23 +405,24 @@ namespace NanoCanvas
 
     Canvas& Canvas::clearColor(const Color& color)
     {
-        nvgSave(m_nvgCtx);
-
+        nvgCancelFrame(m_nvgCtx);
         nvgFillColor(m_nvgCtx,nvgRGBA(color.r,color.g,color.b,color.a));
         nvgBeginPath(m_nvgCtx);
         nvgRect(m_nvgCtx,m_xPos,m_yPos,m_width,m_height);
         nvgFill(m_nvgCtx);
-
-        nvgRestore(m_nvgCtx);
+        
         return *this;
     }
 
-    Canvas& Canvas::fillText(const string& text,float x,float y)
+    Canvas& Canvas::fillText(const string& text,float x,float y,float rowWidth)
     {
         if(text.length())
         {
             local2Global(x,y);
-            nvgText(m_nvgCtx,x,y,text.c_str(),nullptr);
+            if( isnan(rowWidth) )
+                nvgText(m_nvgCtx,x,y,text.c_str(),nullptr);
+            else
+                nvgTextBox(m_nvgCtx,x,y,rowWidth,text.c_str(),nullptr);
         }
         return *this;
     }

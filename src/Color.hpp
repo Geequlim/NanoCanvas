@@ -85,7 +85,7 @@ namespace NanoCanvas
             set(_r,_g,_b,_a);
         }
 
-
+        /// Convert the color to unsigned int as the color code
         inline operator unsigned int() const { return code(); }
 
         inline Byte& operator[](int index){ return mem[index]; }
