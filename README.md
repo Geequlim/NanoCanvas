@@ -49,21 +49,25 @@ if(canvas.valid()) {
     // Everything is OK
 }
 ```
-4. Draw awesome graphics
+
+4 . Draw awesome graphics
     Draw graphics between `begineFrame()` and `endFrame` method.
-    ```c++
-    // main render loop
-    while ( appRunning )
-    {
-        canvas.begineFrame(wndWidth,wndHeight);
-        // Draw awesome graphics here
-        canvas.endFrame();
-    }
-    ```
+
+```c++
+// main render loop
+while ( appRunning )
+{
+    canvas.begineFrame(wndWidth,wndHeight);
+    // Draw awesome graphics here
+    canvas.endFrame();
+}
+```
 
 ### Why not takes NanoVG itself ?
 
 You can use the  backend renderer as your like. You have to do that by yourself. :)
+
+---
 
 ## For more informations
 
