@@ -1,4 +1,4 @@
-NanoCanvas
+NanoCanvas                                    {#mainpage}
 ---
 
 NanoCanvas is the HTML5 Canvas liked antialiased  vector graphics rendering library writing in C++11 based on [Mikko Mononen's NanoVG](https://github.com/memononen/nanovg) .
@@ -18,25 +18,25 @@ canvas.beginPath()
       .fill();
 
 // Draw styled text
-TextStyle testStyle;
-testStyle.size = 36.0f;
-testStyle.color = Colors::White;
-testStyle.face = font.face;
-canvas.fillStyle(testStyle)
+TextStyle textStyle;
+textStyle.size = 36.0f;
+textStyle.color = Colors::White;
+textStyle.face = font.face;
+canvas.fillStyle(textStyle)
       .beginPath()
       .fillText("Hello Canvas",30,190);
 ```
 
-![](screenshot/Screenshot1.png)
+![](https://raw.githubusercontent.com/Geequlim/NanoCanvas/master/screenshot/Screenshot1.png)
 
-* Hardware accelarated so it's fast
+* Hardware accelerated so it's fast
 
     Thanks for backend ports of NanoVG , now we can use NanoCanvas with OpenGL, OpenGL ES, [BGFX](https://github.com/bkaradzic/bgfx) and [D3D](https://github.com/cmaughan/nanovg).
 
 
 ## Integrate to your projects
 
-1. Add NanoVG code to your projects and add the folder where your  nanovg.h file located to your include dirctory. Be sure `#included "nanovg.h"` works on your projects.
+1. Add NanoVG code to your projects and add the folder where your  nanovg.h file located to your include directory. Be sure `#included "nanovg.h"` works on your projects.
 
 2. Add NanoCanvas code files under `src` folder in to your projects.
 
@@ -49,16 +49,14 @@ if(canvas.valid()) {
     // Everything is OK
 }
 ```
-4. Draw aswsome graphics
-
+4. Draw awesome graphics
     Draw graphics between `begineFrame()` and `endFrame` method.
-
     ```c++
     // main render loop
     while ( appRunning )
     {
         canvas.begineFrame(wndWidth,wndHeight);
-        // Draw aswsome graphics here
+        // Draw awesome graphics here
         canvas.endFrame();
     }
     ```
@@ -68,3 +66,5 @@ if(canvas.valid()) {
 You can use the  backend renderer as your like. You have to do that by yourself. :)
 
 ## For more informations
+
+### [Documemtations](https://geequlim.github.io/NanoCanvas/doc/html/index.html) is avaliable.
