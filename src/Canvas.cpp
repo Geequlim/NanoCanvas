@@ -427,19 +427,30 @@ namespace NanoCanvas
         return *this;
     }
     
-    Canvas& Canvas::drawImage(Image& image,
-                          float sx,float sy,float swidth,float sheight,
-                          float x,float y, float width,float height)
+    Canvas& Canvas::drawImage(Image& image,float x,float y, 
+                              float width,float height,
+                              float sx,float sy,float swidth,float sheight)
     {
         if(image.valid())
         {
             save();
+            
+            local2Global(x,y);
+            int w,h;
+            image.size(w,h);
+            
+            if( isnan(swidth) )
+                swidth = w - sx;
+            if( isnan(sheight) )
+                sheight = h - sy;
+            if( isnan(width) )
+                width = swidth;
+            if( isnan(height) )
+                height = sheight;
+            
             resetClip();
             clip(x,y,width,height);
             
-            int w,h;
-            image.size(w,h);
-            local2Global(x,y);
             float sw =  width / swidth;
             float sh =  height / sheight;
             float rx,ry,rw,rh;
