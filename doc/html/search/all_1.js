@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['b',['b',['../struct_nano_canvas_1_1_color.html#a6a568485382016e1706790c964dcec08',1,'NanoCanvas::Color']]],
+  ['baseline',['Baseline',['../namespace_nano_canvas_1_1_text_align.html#a034b1e0cc59fc5d47c774ad2d34cd4e6a08314d480719e1dce58ec0a081b80e91',1,'NanoCanvas::TextAlign']]],
+  ['bb',['bb',['../struct_nano_canvas_1_1_paint.html#ab1f4b42745a1d3a5742c57ad1121fe37',1,'NanoCanvas::Paint']]],
+  ['begineframe',['begineFrame',['../class_nano_canvas_1_1_canvas.html#ad5504af1797e38f83aa3cb6a2d6fe9b9',1,'NanoCanvas::Canvas']]],
+  ['beginpath',['beginPath',['../class_nano_canvas_1_1_canvas.html#aa6bf7b48824f86f268a1e69a2bef73e1',1,'NanoCanvas::Canvas']]],
+  ['beiqe',['Beiqe',['../namespace_nano_canvas_1_1_colors.html#a883594d29ec58761b27a0377711348a5',1,'NanoCanvas::Colors']]],
+  ['bevel',['BEVEL',['../class_nano_canvas_1_1_canvas.html#a4857c79c7aff6c1124e17ea68ea468b8afd0bc23077caf1976908d63a226fd9e1',1,'NanoCanvas::Canvas']]],
+  ['beziercurveto',['bezierCurveTo',['../class_nano_canvas_1_1_canvas.html#ac7195074ae1f5142aabed80e1c13f982',1,'NanoCanvas::Canvas']]],
+  ['bisque',['Bisque',['../namespace_nano_canvas_1_1_colors.html#ac7c2aa621268c72b2b6b0f64b4605191',1,'NanoCanvas::Colors']]],
+  ['black',['Black',['../namespace_nano_canvas_1_1_colors.html#af02e479f4afff43a1fb4eadee67fd73f',1,'NanoCanvas::Colors']]],
+  ['blanchedalmond',['BlanchedAlmond',['../namespace_nano_canvas_1_1_colors.html#aeb395b2f1d30d73cde658e66e03556d7',1,'NanoCanvas::Colors']]],
+  ['blue',['Blue',['../namespace_nano_canvas_1_1_colors.html#a819b5d9b13a5b3c6a7a15847437b9090',1,'NanoCanvas::Colors']]],
+  ['bluef',['bluef',['../struct_nano_canvas_1_1_color.html#aa11ac891e0962ebe00a96124d0ce5f80',1,'NanoCanvas::Color']]],
+  ['blueviolet',['BlueViolet',['../namespace_nano_canvas_1_1_colors.html#a37b2c52e5dab79151fdda103cb5e4f37',1,'NanoCanvas::Colors']]],
+  ['blur',['blur',['../struct_nano_canvas_1_1_text_style.html#a69c376b63a9102be56de80b94ba06ee2',1,'NanoCanvas::TextStyle']]],
+  ['bottom',['Bottom',['../namespace_nano_canvas_1_1_text_align.html#a034b1e0cc59fc5d47c774ad2d34cd4e6a907d614650470407e27b3a0fcf1f1740',1,'NanoCanvas::TextAlign']]],
+  ['box',['Box',['../struct_nano_canvas_1_1_paint.html#adcfad2573852e6471d0d629f2b501663a3cfce651e667ab85486dd42a8185f98a',1,'NanoCanvas::Paint']]],
+  ['brown',['Brown',['../namespace_nano_canvas_1_1_colors.html#a7cbcbfed5d418f3854ee0cef6449c7f5',1,'NanoCanvas::Colors']]],
+  ['burlywood',['BurlyWood',['../namespace_nano_canvas_1_1_colors.html#a015580d5a9636f5ab49f3e0068d40e62',1,'NanoCanvas::Colors']]],
+  ['butt',['BUTT',['../class_nano_canvas_1_1_canvas.html#a2de60fad0c2abf0ca790bc1340f8833cabfe2745ea51c5d35e6bf1f528c1e131f',1,'NanoCanvas::Canvas']]],
+  ['byte',['Byte',['../namespace_nano_canvas.html#af5a74d011a320ebd1637b3d65edde9d3',1,'NanoCanvas::Byte()'],['../namespace_nano_canvas_1_1_color_converter.html#a3c1157df2a4d900f4d985723fc852bd3',1,'NanoCanvas::ColorConverter::byte()'],['../namespace_color_converter.html#af5456b0ef8896764b6f9ffead65ea710',1,'ColorConverter::byte()']]]
+];

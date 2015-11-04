@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['r',['r',['../struct_nano_canvas_1_1_color.html#a037bef431701dc90586bbce4d7fd32ff',1,'NanoCanvas::Color']]],
+  ['radial',['Radial',['../struct_nano_canvas_1_1_paint.html#adcfad2573852e6471d0d629f2b501663afdc32a55217f1ca054f1f2b51ef4f6ec',1,'NanoCanvas::Paint']]],
+  ['radians2degree',['radians2Degree',['../namespace_nano_canvas.html#a07a30092bf7006664fe00248975797f2',1,'NanoCanvas']]],
+  ['readme_2emd',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]],
+  ['rect',['rect',['../class_nano_canvas_1_1_canvas.html#a8e716f8e23ad1aa759457cbe3384ee59',1,'NanoCanvas::Canvas']]],
+  ['red',['Red',['../namespace_nano_canvas_1_1_colors.html#a1abfbbc3fe1183355119f76e211a351a',1,'NanoCanvas::Colors']]],
+  ['redf',['redf',['../struct_nano_canvas_1_1_color.html#af230a82b7af78d0395489be667d19208',1,'NanoCanvas::Color']]],
+  ['repeatx',['RepeatX',['../class_nano_canvas_1_1_image.html#aaf735174fe7b3980a0985099f4e37a0fa46d0bf2f1242758e1d23bd27b2368420',1,'NanoCanvas::Image']]],
+  ['repeaty',['RepeatY',['../class_nano_canvas_1_1_image.html#aaf735174fe7b3980a0985099f4e37a0fa662a67e3e4a11c811311dd80fb41b340',1,'NanoCanvas::Image']]],
+  ['reset',['reset',['../class_nano_canvas_1_1_canvas.html#aa86496c90155c97f8080da774dc3b9ed',1,'NanoCanvas::Canvas']]],
+  ['resetclip',['resetClip',['../class_nano_canvas_1_1_canvas.html#ace3e7c85696a3ce5cadce4cc0fa4e09b',1,'NanoCanvas::Canvas']]],
+  ['restore',['restore',['../class_nano_canvas_1_1_canvas.html#ad1c31d0c0283e85b2d596501e19bf3c5',1,'NanoCanvas::Canvas']]],
+  ['resttransform',['restTransform',['../class_nano_canvas_1_1_canvas.html#a718dff1aa574e87b20e141541dc60667',1,'NanoCanvas::Canvas']]],
+  ['rgbtohsl',['rgbToHsl',['../namespace_nano_canvas_1_1_color_converter.html#aef4be362d288dd95a6345a384704b548',1,'NanoCanvas::ColorConverter::rgbToHsl()'],['../namespace_color_converter.html#a2e0066f22c4da26a29effa376c94b0a8',1,'ColorConverter::rgbToHsl()']]],
+  ['rgbtohsv',['rgbToHsv',['../namespace_nano_canvas_1_1_color_converter.html#afc2e40144ec6bf4139dc2f85c798bec7',1,'NanoCanvas::ColorConverter::rgbToHsv()'],['../namespace_color_converter.html#a5fdecd9b5582fa852b049b1cffde3644',1,'ColorConverter::rgbToHsv()']]],
+  ['right',['Right',['../namespace_nano_canvas_1_1_text_align.html#a0690f497796845ba97bc112eac2f6d73aee80792de8bd4a595bdef02a22686d1d',1,'NanoCanvas::TextAlign']]],
+  ['rosybrown',['RosyBrown',['../namespace_nano_canvas_1_1_colors.html#aab3c9104df91966f5854ea451dedc51b',1,'NanoCanvas::Colors']]],
+  ['rotate',['rotate',['../class_nano_canvas_1_1_canvas.html#a3b7d6c3e9f9d5673cfa41d87352c0da4',1,'NanoCanvas::Canvas']]],
+  ['round',['ROUND',['../class_nano_canvas_1_1_canvas.html#a2de60fad0c2abf0ca790bc1340f8833ca2ea77cf582892014b30e6fa7e558350d',1,'NanoCanvas::Canvas::ROUND()'],['../class_nano_canvas_1_1_canvas.html#a4857c79c7aff6c1124e17ea68ea468b8a2ea77cf582892014b30e6fa7e558350d',1,'NanoCanvas::Canvas::ROUND()']]],
+  ['roundedrect',['roundedRect',['../class_nano_canvas_1_1_canvas.html#aa0f60c8f77b4be551dda3ddcdfb268c1',1,'NanoCanvas::Canvas']]],
+  ['royalblue',['RoyalBlue',['../namespace_nano_canvas_1_1_colors.html#ab4b3aff4820c455ba2f7f03f246d1899',1,'NanoCanvas::Colors']]]
+];
