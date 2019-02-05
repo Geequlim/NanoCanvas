@@ -236,11 +236,11 @@ namespace NanoCanvas
     {
         if( textStyle.face>=0 )
             nvgFontFaceId(canvas.nvgContext(),textStyle.face);
-        if( !isnan(textStyle.lineHeight) )
+        if( !std::isnan(textStyle.lineHeight) )
             nvgTextLineHeight(canvas.nvgContext(),textStyle.lineHeight);
-        if( !isnan(textStyle.blur) )
+        if( !std::isnan(textStyle.blur) )
             nvgFontBlur(canvas.nvgContext(),textStyle.blur);
-        if( !isnan(textStyle.letterSpace))
+        if( !std::isnan(textStyle.letterSpace))
             nvgTextLetterSpacing(canvas.nvgContext(),textStyle.letterSpace);
         nvgTextAlign(canvas.nvgContext(),textStyle.hAlign|textStyle.vAlign);
         nvgFontSize(canvas.nvgContext(),textStyle.size);
@@ -256,7 +256,7 @@ namespace NanoCanvas
     float Canvas::measureText(const string& text,float rowWidth)
     {
         float width = 0;
-        if( isnan(rowWidth))
+        if( std::isnan(rowWidth))
             width =  nvgTextBounds(m_nvgCtx,0,0,text.c_str(),nullptr,nullptr);
         else
         {
@@ -270,7 +270,7 @@ namespace NanoCanvas
                               float* bounds,float rowWidth)
     {
         local2Global(x,y);
-        if( isnan(rowWidth))
+        if( std::isnan(rowWidth))
             nvgTextBounds(m_nvgCtx,x,y,text.c_str(),nullptr,bounds);
         else
             nvgTextBoxBounds(m_nvgCtx,x,y,rowWidth,text.c_str(),nullptr,bounds);
@@ -419,7 +419,7 @@ namespace NanoCanvas
         if(text.length())
         {
             local2Global(x,y);
-            if( isnan(rowWidth) )
+            if( std::isnan(rowWidth) )
                 nvgText(m_nvgCtx,x,y,text.c_str(),nullptr);
             else
                 nvgTextBox(m_nvgCtx,x,y,rowWidth,text.c_str(),nullptr);
@@ -439,13 +439,13 @@ namespace NanoCanvas
             int w,h;
             image.size(w,h);
             
-            if( isnan(swidth) )
+            if( std::isnan(swidth) )
                 swidth = w - sx;
-            if( isnan(sheight) )
+            if( std::isnan(sheight) )
                 sheight = h - sy;
-            if( isnan(width) )
+            if( std::isnan(width) )
                 width = swidth;
-            if( isnan(height) )
+            if( std::isnan(height) )
                 height = sheight;
             
             resetClip();
